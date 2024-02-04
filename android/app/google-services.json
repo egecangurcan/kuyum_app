@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1023420781869",
+    "project_id": "kuyum-app-58519",
+    "storage_bucket": "kuyum-app-58519.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023420781869:android:2e96c942fda257a0712fa4",
+        "android_client_info": {
+          "package_name": "com.example.kuyum_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3eu8yOfys4x8hTgRSJ6HlrQFiP_AYi1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
