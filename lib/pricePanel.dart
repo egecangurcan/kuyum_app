@@ -30,14 +30,14 @@ class Bottom extends StatelessWidget {
               ),
             ),
             const Divider(),
-            ...fiyatlar.map((fiyat) {
+            ...fiyatlar.map((product) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(fiyat.name, style: const TextStyle(fontSize: 24)),
-                    Text(fiyat.price.toString(), style: const TextStyle(fontSize: 24)),
+                    Text(product.name, style: const TextStyle(fontSize: 24)),
+                    Text(product.price.toString(), style: const TextStyle(fontSize: 24)),
                   ],
                 ),
               );
