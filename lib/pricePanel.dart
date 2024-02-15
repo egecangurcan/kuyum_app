@@ -1,65 +1,42 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class Bottom extends StatelessWidget {
-  const Bottom({super.key});
+class Bottom extends StatefulWidget {
+  const Bottom({Key? key}) : super(key: key);
+
+  @override
+  _BottomState createState() => _BottomState();
+}
+
+class _BottomState extends State<Bottom> {
+  late WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: FirebaseFirestore.instance.collection('fiyatlar').get(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        List<Product> fiyatlar = snapshot.data!.docs.map((DocumentSnapshot doc) {
-          return Product.fromSnapshot(doc);
-        }).toList();
-
-        return Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Tür", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                  Text("Satış ( ₺ )", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
-                ],
-              ),
+    return Column(
+      children: [
+        Expanded(
+          child: Stack(
+            children:[
+              WebView(
+              initialUrl: 'https://www.izko.org.tr/Home/GuncelKur',
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller = webViewController;
+              },
             ),
-            const Divider(),
-            ...fiyatlar.map((product) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(product.name, style: const TextStyle(fontSize: 24)),
-                    Text(product.price.toString(), style: const TextStyle(fontSize: 24)),
-                  ],
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: () {
+                    // Handle touch events here
+                  },
+                  behavior: HitTestBehavior.opaque, // This ensures that the gesture detector consumes all touches
                 ),
-              );
-            }),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class Product {
-  final String name;
-  final double price;
-
-  Product({required this.name, required this.price});
-
-  factory Product.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    return Product(
-      name: data['tur'] ?? '',
-      price: data['fiyat'] ?? '',
+              ),
+            ]
+          ),
+        ),
+      ],
     );
   }
 }

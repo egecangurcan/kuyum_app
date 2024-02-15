@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kuyum_app/editPanel.dart';
 import 'package:kuyum_app/pricePanel.dart';
 import 'firebase_options.dart';
 import 'imagePanel.dart';
@@ -34,26 +35,40 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(
+            const SizedBox(height: 50,),
+            const Expanded(
               flex: 4,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Top(),
               ),
             ),
-            SizedBox(height: 16),
-            Expanded(
-              flex: 6,
+            const SizedBox(height: 16),
+            const Expanded(
+              flex: 4,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Bottom(),
               ),
             ),
+            Expanded(flex: 1,
+                child: Positioned.fill(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PasswordScreen()),
+                      );
+                    },
+                    behavior: HitTestBehavior.opaque, // This ensures that the gesture detector consumes all touches
+                  ),
+                ),
+            )
           ],
         ),
       ),
